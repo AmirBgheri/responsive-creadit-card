@@ -29,7 +29,7 @@ console.log(ccv);
 
 num.forEach((item,i) => {
     // console.log(i);
-    item.addEventListener('keyup',(e)=>{
+    item.addEventListener('input',(e)=>{
         if(item.value.length>=4){
             if(i!=3){
                 item.nextElementSibling.focus()
@@ -37,6 +37,12 @@ num.forEach((item,i) => {
                 holder.focus()
             }
         }
+        ///////
+        if(item.value.search(/[^0-9]/)>=0){
+            item.value=item.value.slice(0 , item.value.length-1)   
+        }
+
+
 
         if(item.value.length!=3){
             inp1.addEventListener('focus',(e)=>{
@@ -57,7 +63,10 @@ num.forEach((item,i) => {
     
 });
     
-    holder.addEventListener('keyup',(e)=>{
+    holder.addEventListener('input',(e)=>{
+        if(holder.value.search(/[^a-z]/)>=0){
+            holder.value=holder.value.slice(0 ,holder.value.length-1)
+        }
     holder.addEventListener('focus',(e)=>{
         holder.innerHTML=''
     })
@@ -72,12 +81,17 @@ num.forEach((item,i) => {
         expyear.innerHTML=year.value
     });
     
-    ccvinp.addEventListener('keyup',(e)=>{
+    ccvinp.addEventListener('input',(e)=>{
        ccv.innerHTML=ccvinp.value
-       
+        if(e.target.value.search(/[^0-9]/)>=0){
+            e.target.value=e.target.value.slice(0 , e.target.value.length-1)
+        }
+
        
     })
 
+
+    ////////local storage////
     let a = 0
     let name= localStorage.getItem('card name')
     let txt = localStorage.getItem('card number')
